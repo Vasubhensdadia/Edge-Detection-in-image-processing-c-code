@@ -36,8 +36,10 @@ int main(){
 //CHANGES COLOR IMAGE DATA INTO GREYSCALE FOR FURTHER PROCESSING
 void Greyscale(unsigned char * img_data, unsigned char * grey_matrix, int img_size){
 	for(int i  = 0; i <img_size;i++){
-		unsigned char I = __max(img_data[3*i],img_data[3*i+1]);
-		I = __max(I, img_data[3*i+2]);
+		unsigned char I = fmax(img_data[3*i], fmax(img_data[3*i+1], img_data[3*i+2]));
+		
+		// unsigned char I = __max(img_data[3*i],img_data[3*i+1]);
+		// I = __max(I, img_data[3*i+2]);
 		grey_matrix[i] = I;
 	}
 
@@ -120,28 +122,28 @@ int * Canny(int *sobble_matrix, double * orient, int img_h, int img_w){
 				if(orient[i]>-1*pi/6 && orient[i]< pi/6){
 					int id1 = i-img_w;
 					int id2 =  i+img_w;
-					if(sobble_matrix[i]>__max(sobble_matrix[id1],sobble_matrix[id2])){
+					if(sobble_matrix[i]>fmax(sobble_matrix[id1],sobble_matrix[id2])){
 						canny_matrix[i] = sobble_matrix[i];
 					}
 				}
 				else if(orient[i]>-1*pi/3 && orient[i]< -1*pi/6){
 					int id1 = i-img_w+1;
 					int id2 =  i+img_w-1;
-					if(sobble_matrix[i]>__max(sobble_matrix[id1],sobble_matrix[id2])){
+					if(sobble_matrix[i]>fmax(sobble_matrix[id1],sobble_matrix[id2])){
 						canny_matrix[i] = sobble_matrix[i];
 					}
 				}
 				else if(orient[i]<pi/3 && orient[i]>pi/6){
 					int id1 = i-img_w-1;
 					int id2 =  i+img_w+1;
-					if(sobble_matrix[i]>__max(sobble_matrix[id1],sobble_matrix[id2])){
+					if(sobble_matrix[i]>fmax(sobble_matrix[id1],sobble_matrix[id2])){
 						canny_matrix[i] = sobble_matrix[i];
 					}
 				}
 				else{
 					int id1 = i-1;
 					int id2 =  i+1;
-					if(sobble_matrix[i]>__max(sobble_matrix[id1],sobble_matrix[id2])){
+					if(sobble_matrix[i]>fmax(sobble_matrix[id1],sobble_matrix[id2])){
 						canny_matrix[i] = sobble_matrix[i];
 					}
 				}
@@ -215,7 +217,7 @@ int* Patch(int* sobble_matrix, int img_h, int img_w, int patch_s ){
 int Image_Process(char src[50]){
 	FILE *fin, *fout, *fblur;
 	fin = fopen(src, "rb");
-	fout = fopen("results\\image_o.bmp", "wb");
+	fout = fopen("C:\\Users\\vasub\\Downloads\\answer_2018.bmp", "wb");
 
 	//READ IMAGE HEADER AND ASSIGN H,W,BITDEPTH
 	unsigned char header[54];				
