@@ -9,4 +9,11 @@ content.
 
 in this project, We have to make this possible without using any libraries. 
 
-Three steps : Gaussian Blur, Sobel Operator & Canny Operator
+Three steps : 
+1. Gaussian Blur,
+2. Sobel Operator,
+3. Canny Operator
+
+Constraint:
+1. Input image file must in bmp file.     format.
+2. When code is running, you should've    to enter no. of patches. No. of.       patch you enter must be divisible.     by no. of pixels in row and column     both(size of image).
